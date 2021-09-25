@@ -1,11 +1,12 @@
 import { NavBar } from "../../Components/NavBar";
+import { Container } from "./style";
 
 const Home = ({ isLogged }) => {
   //ir pra login ou userPage
   return (
-    <div>
+    <Container>
       <NavBar isLogged={isLogged} />
-    </div>
+    </Container>
   );
 };
 export default Home;
