@@ -5,7 +5,7 @@ export const InputStyled = styled.input`
   border-radius: 4px;
   padding-left: 5px;
   background-color: ${({ backgroundColor = "white" }) => backgroundColor};
-  border: 1px solid rgb(63, 63, 63);
+  border: 1px solid lightgray;
   margin-bottom: 20px;
   color: ${({ color = "black" }) => color};
 
@@ -25,7 +25,8 @@ export const InputStyled = styled.input`
     background-color: ${({ backgroundColor = "white" }) => backgroundColor};
     position: absolute;
     padding: 0 5px;
-    color: #057d9f;
+    color: var(--primary-Color);
+    font-size: 12px;
     left: 10px;
     top: -10px;
   }
@@ -34,7 +35,7 @@ export const InputStyled = styled.input`
     background-color: ${({ backgroundColor = "white" }) => backgroundColor};
     padding: 0 5px;
     position: absolute;
-    color: #057d9f;
+    color: var(--primary-Color);
     left: 10px;
     top: -10px;
   }

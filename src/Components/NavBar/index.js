@@ -16,12 +16,17 @@ export const NavBar = ({ isLogged }) => {
         <nav>
           <ul>
             <li>
-              <ButtonsDefult border={"none"} onClick={() => handleRoute("/")}>
+              <ButtonsDefult
+                fontcolor={"#4b9fb7"}
+                border={"none"}
+                onClick={() => handleRoute("/")}
+              >
                 Home
               </ButtonsDefult>
             </li>
             <li>
               <ButtonsDefult
+                fontcolor={"#4b9fb7"}
                 border={"none"}
                 onClick={() => handleRoute("/register")}
               >
@@ -30,6 +35,7 @@ export const NavBar = ({ isLogged }) => {
             </li>
             <li>
               <ButtonsDefult
+                fontcolor={"#4b9fb7"}
                 border={"none"}
                 onClick={() => handleRoute("/login")}
               >

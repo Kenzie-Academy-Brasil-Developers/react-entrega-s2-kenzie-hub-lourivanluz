@@ -48,6 +48,21 @@ const Register = ({ isLogged }) => {
             <div>google</div>
           </div>
         </div>
+        <footer>
+          <p>
+            * Ao se registrar, você concorda com os nossos
+            <span>Termos de Uso</span>, em receber emails e atualizações do Wix
+            e confirma que leu nossa <span>Política de Privacidade</span>.
+          </p>
+          <div>
+            <div className="divider"></div>
+          </div>
+          <p>
+            Este site é protegido pelo reCAPTCHA Enterprise e a
+            <span>Política de Privacidade</span> e <span>Termos de Uso</span> do
+            Google se aplicam.
+          </p>
+        </footer>
       </FormContainer>
     </Container>
   );

@@ -5,5 +5,5 @@ export const Container = styled(Box)`
   max-width: 1080px;
   min-height: 100vh;
   margin: 0 auto;
-  background-color: #4b9fb7;
+  background-color: var(--light-Color);
 `;

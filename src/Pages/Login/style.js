@@ -42,6 +42,23 @@ export const FormContainer = styled(Box)`
       align-items: center;
       width: 45%;
     }
+    .remember {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      width: 100%;
+      margin-bottom: 20px;
+      > label {
+        display: flex;
+        align-items: center;
+        > input {
+          margin-right: 5px;
+          &:checked {
+            background-color: var(--primary-Color);
+          }
+        }
+      }
+    }
     .divider {
       width: 10%;
       display: flex;
