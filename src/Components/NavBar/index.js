@@ -2,7 +2,7 @@ import { Container, NavBarStyled } from "./style";
 import { useHistory } from "react-router";
 import { ButtonMenuDrop, ButtonsDefult } from "./../Buttons";
 
-export const NavBar = ({ isLogged, setIsLogged }) => {
+export const NavBar = ({ isAuthenticated, setIsAuthenticated }) => {
   const history = useHistory();
 
   const handleRoute = (path) => {
@@ -39,12 +39,12 @@ export const NavBar = ({ isLogged, setIsLogged }) => {
                 border={"none"}
                 onClick={() => handleRoute("/login")}
               >
-                {isLogged ? "Outra conta" : "Login"}
+                {isAuthenticated ? "Outra conta" : "Login"}
               </ButtonsDefult>
             </li>
-            {isLogged && (
+            {isAuthenticated && (
               <li>
-                <ButtonMenuDrop setIsLogged={setIsLogged} />
+                <ButtonMenuDrop setIsAuthenticated={setIsAuthenticated} />
               </li>
             )}
           </ul>

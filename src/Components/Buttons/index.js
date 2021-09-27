@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import { ButtonStyled } from "./style";
 
-export const ButtonMenuDrop = ({ setIsLogged, setUser, ...rest }) => {
+export const ButtonMenuDrop = ({ setIsAuthenticated, ...rest }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -42,9 +42,8 @@ export const ButtonMenuDrop = ({ setIsLogged, setUser, ...rest }) => {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            setUser({});
             localStorage.clear();
-            setIsLogged(false);
+            setIsAuthenticated("");
           }}
         >
           Logout

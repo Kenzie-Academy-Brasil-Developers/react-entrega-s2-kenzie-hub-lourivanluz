@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { schema } from "../../Schema/Schema";
 import api from "./../../Services/api";
 
-const Register = ({ isLogged, setIsLogged, setIdUser }) => {
+const Register = ({ isAuthenticated, setIsAuthenticated, setIdUser }) => {
   const history = useHistory();
 
   const handleClick = (path) => {
@@ -37,7 +37,7 @@ const Register = ({ isLogged, setIsLogged, setIdUser }) => {
         setIdUser(id);
         localStorage.clear();
         localStorage.setItem("@kenzieHub:token:", JSON.stringify(token));
-        setIsLogged(true);
+        setIsAuthenticated(true);
         history.push("/userPage");
       })
       .catch((_) => console.log("edeu erro"));
@@ -54,7 +54,10 @@ const Register = ({ isLogged, setIsLogged, setIdUser }) => {
 
   return (
     <Container>
-      <NavBar isLogged={isLogged} setIsLogged={setIsLogged} />
+      <NavBar
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+      />
       <FormContainer>
         <div className="titleForm">
           <h1>Registre-se</h1>

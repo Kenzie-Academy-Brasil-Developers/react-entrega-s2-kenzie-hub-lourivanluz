@@ -4,49 +4,48 @@ import { NavBar } from "../../Components/NavBar";
 import api from "../../Services/api";
 import { useForm } from "react-hook-form";
 import { DivStyled } from "./style";
-const UserPage = ({ isLogged, setIsLogged, idUser }) => {
+const UserPage = ({ isAuthenticated, setIsAuthenticated, idUser }) => {
   const [token] = useState(
-    JSON.stringify(localStorage.getItem("@kenzieHub:token")) || ""
+    JSON.parse(localStorage.getItem("@kenzieHub:token:")) || ""
   );
-  const [techs, setTechs] = useState([]);
-  const [works, setWorks] = useState([]);
+
+  const [user, setUser] = useState({});
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (idUser) {
-      api
-        .get(`/users/${idUser}`)
-        .then((response) => {
-          setTechs(response.techs);
-          setWorks(response.works);
-        })
-        .catch((err) => console.log("errou"));
-    }
-  }, []);
+  if (idUser) {
+    api
+      .get(`/users/${idUser}`)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((err) => console.log("errou"));
+  }
 
-  if (!isLogged) {
+  if (!isAuthenticated) {
     return <Redirect to="/login" />;
   }
 
   const newTech = (data) => {
     api
-      .post("/users/techs", {
+      .post("/users/techs/", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data: data,
       })
-      .then((response) => console.log("deu certo"))
-      .catch((err) => console.log("ndeu"));
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
   };
-
   return (
     <DivStyled>
-      <NavBar isLogged={isLogged} setIsLogged={setIsLogged} />
+      <NavBar
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+      />
 
       <form onSubmit={handleSubmit(newTech)}>
         <input type="text" placeholder="titulo" {...register("title")} />
@@ -55,7 +54,7 @@ const UserPage = ({ isLogged, setIsLogged, idUser }) => {
       </form>
 
       <ul>
-        {techs?.map((item, index) => (
+        {user.techs?.map((item, index) => (
           <li
             key={index}
           >{`nome da tec: ${item.title} status${item.status}`}</li>
