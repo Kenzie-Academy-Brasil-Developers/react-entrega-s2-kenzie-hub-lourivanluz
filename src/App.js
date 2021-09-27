@@ -19,6 +19,17 @@ buscar imagens de
 10. C++
 11. C
 
+
+jZeMaco
+zemarkim@hothot.com
+zeMarkin1@
+testando
+testando
+modulo2
+
+
+
+
 card component : recebe prop cor, imagem e nivel
 toda pagina vai ter o mesmo bg e uma barra no topo,
 fazer 1 pagina de home, 1 pagina de cadastro , 1 pagina de login e 1 pagina de usuario

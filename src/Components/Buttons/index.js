@@ -1,9 +1,10 @@
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
+import { useHistory } from "react-router";
 import { ButtonStyled } from "./style";
 
-export const ButtonMenuDrop = ({ path }) => {
+export const ButtonMenuDrop = ({ setIsLogged, setUser, ...rest }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -12,6 +13,7 @@ export const ButtonMenuDrop = ({ path }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const history = useHistory();
 
   return (
     <div>
@@ -21,7 +23,8 @@ export const ButtonMenuDrop = ({ path }) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        variant="contained"
+        fontcolor={"#4b9fb7"}
+        border={"none"}
       >
         Dashboard
       </ButtonStyled>
@@ -34,8 +37,18 @@ export const ButtonMenuDrop = ({ path }) => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Minha página</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={() => history.push("/userPage")}>
+          Minha página
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setUser({});
+            localStorage.clear();
+            setIsLogged(false);
+          }}
+        >
+          Logout
+        </MenuItem>
       </Menu>
     </div>
   );

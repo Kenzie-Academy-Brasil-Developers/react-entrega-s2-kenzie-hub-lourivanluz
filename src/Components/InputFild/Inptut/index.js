@@ -2,11 +2,11 @@ import styled from "styled-components";
 export const InputStyled = styled.input`
   width: 100%;
   height: 40px;
+  margin-bottom: 20px;
   border-radius: 4px;
   padding-left: 5px;
   background-color: ${({ backgroundColor = "white" }) => backgroundColor};
   border: 1px solid lightgray;
-  margin-bottom: 20px;
   color: ${({ color = "black" }) => color};
 
   &:hover {
@@ -14,7 +14,9 @@ export const InputStyled = styled.input`
   }
   &:focus {
     outline: none;
-    border: 1px solid #057d9f;
+    border: 1px solid;
+    border-color: ${({ error = false }) =>
+      error ? "red" : "var(--primary-Color)"};
   }
   &:focus::placeholder {
     color: transparent;
@@ -25,7 +27,7 @@ export const InputStyled = styled.input`
     background-color: ${({ backgroundColor = "white" }) => backgroundColor};
     position: absolute;
     padding: 0 5px;
-    color: var(--primary-Color);
+    color: ${({ error = false }) => (error ? "red" : "var(--primary-Color)")};
     font-size: 12px;
     left: 10px;
     top: -10px;
@@ -35,12 +37,15 @@ export const InputStyled = styled.input`
     background-color: ${({ backgroundColor = "white" }) => backgroundColor};
     padding: 0 5px;
     position: absolute;
-    color: var(--primary-Color);
+    color: ${({ error = false }) => (error ? "red" : "var(--primary-Color)")};
+    font-size: 12px;
     left: 10px;
     top: -10px;
   }
 
   &:required:valid {
-    border: 2px solid #057d9f;
+    border: 2px solid;
+    border-color: ${({ error = false }) =>
+      error ? "red" : "var(--primary-Color)"};
   }
 `;

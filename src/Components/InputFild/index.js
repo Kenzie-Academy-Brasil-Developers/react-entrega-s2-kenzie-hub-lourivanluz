@@ -7,12 +7,13 @@ const DivStyled = styled.div`
   width: 100%;
 `;
 
-export const InputFild = ({ ...ress }) => {
+export const InputFild = ({ register, id, ...ress }) => {
   return (
     <DivStyled>
-      <InputStyled {...ress} />
-      <Label htmlFor={ress.id} {...ress}>
-        {ress.name}
+      {register && <InputStyled {...ress} {...register(id)} />}
+      {!register && <InputStyled {...ress} />}
+      <Label htmlFor={ress.id}>
+        {!ress.error ? ress.name : `${ress.name} ${ress.messageerror}`}
       </Label>
     </DivStyled>
   );

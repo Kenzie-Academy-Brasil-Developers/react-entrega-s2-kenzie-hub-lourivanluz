@@ -1,11 +1,10 @@
 import { NavBar } from "../../Components/NavBar";
 import { Container } from "./style";
 
-const Home = ({ isLogged }) => {
-  //ir pra login ou userPage
+const Home = ({ isLogged, setIsLogged }) => {
   return (
     <Container>
-      <NavBar isLogged={isLogged} />
+      <NavBar isLogged={isLogged} setIsLogged={setIsLogged} />
     </Container>
   );
 };

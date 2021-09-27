@@ -3,17 +3,58 @@ import { Container, FormContainer } from "./style";
 import { useHistory } from "react-router";
 import { InputFild } from "../../Components/InputFild";
 import { ButtonsDefult } from "../../Components/Buttons";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { schema } from "../../Schema/Schema";
+import api from "./../../Services/api";
 
-const Register = ({ isLogged }) => {
+const Register = ({ isLogged, setIsLogged, setIdUser }) => {
   const history = useHistory();
 
   const handleClick = (path) => {
     history.push(path);
   };
 
+  const schemaform = schema;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schemaform),
+  });
+
+  const handleLogin = ({ email, password }) => {
+    api
+      .post("/sessions", { email, password })
+      .then((response) => {
+        const {
+          token,
+          user: { id },
+        } = response.data;
+
+        setIdUser(id);
+        localStorage.clear();
+        localStorage.setItem("@kenzieHub:token:", JSON.stringify(token));
+        setIsLogged(true);
+        history.push("/userPage");
+      })
+      .catch((_) => console.log("edeu erro"));
+  };
+
+  const onFormSubmit = (data) => {
+    api
+      .post("/users", data)
+      .then((_) => {
+        handleLogin(data);
+      })
+      .catch((error) => console.log("errou"));
+  };
+
   return (
     <Container>
-      <NavBar isLogged={isLogged} />
+      <NavBar isLogged={isLogged} setIsLogged={setIsLogged} />
       <FormContainer>
         <div className="titleForm">
           <h1>Registre-se</h1>
@@ -23,17 +64,66 @@ const Register = ({ isLogged }) => {
           </p>
         </div>
         <div className="containerForm">
-          <form className="inputForm">
-            <InputFild required id="name" type="text" name="Nome completo" />
-            <InputFild required id="email" type="email" name="Email" />
-            <InputFild required id="senha" type="password" name="Senha" />
-            <InputFild required id="bio" type="text" name="Bio" />
-            <InputFild required id="contact" type="text" name="Contato" />
-            <InputFild required id="course_module" type="text" name="Módulo" />
+          <form className="inputForm" onSubmit={handleSubmit(onFormSubmit)}>
+            <InputFild
+              required
+              id="name"
+              type="text"
+              name="Nome completo"
+              register={register}
+              error={!!errors.name}
+              messageerror={errors.name?.message}
+            />
+            <InputFild
+              register={register}
+              required
+              id="email"
+              type="text"
+              name="Email"
+              error={!!errors.email}
+              messageerror={errors.email?.message}
+            />
+            <InputFild
+              register={register}
+              required
+              id="password"
+              type="password"
+              name="Senha"
+              error={!!errors.password}
+              messageerror={errors.password?.message}
+            />
+            <InputFild
+              register={register}
+              required
+              id="bio"
+              type="text"
+              name="Bio"
+              error={!!errors.bio}
+              messageerror={errors.bio?.message}
+            />
+            <InputFild
+              register={register}
+              required
+              id="contact"
+              type="text"
+              name="Contato"
+              error={!!errors.contact}
+              messageerror={errors.contact?.message}
+            />
+            <InputFild
+              register={register}
+              required
+              id="course_module"
+              type="text"
+              name="Módulo"
+              error={!!errors.course_module}
+              messageerror={errors.course_module?.message}
+            />
             <ButtonsDefult
-              borderRadius={"15px"}
-              hoverBColor={"#057d9f"}
-              hoverColor={"white"}
+              type={"submit"}
+              borderradius={"15px"}
+              hoverbcolor={"#057d9f"}
+              hovercolor={"white"}
               hoverborder={"1px solid #057d9f"}
             >
               Cadastre-se

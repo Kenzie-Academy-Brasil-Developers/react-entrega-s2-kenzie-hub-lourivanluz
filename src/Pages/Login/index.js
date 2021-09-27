@@ -3,18 +3,52 @@ import { Container, FormContainer } from "./style";
 import { useHistory } from "react-router";
 import { InputFild } from "../../Components/InputFild";
 import { ButtonsDefult } from "../../Components/Buttons";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import api from "../../Services/api";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-const Login = ({ isLogged }) => {
+const Login = ({ isLogged, setIsLogged, setIdUser }) => {
   const history = useHistory();
 
   const handleClick = (path) => {
     history.push(path);
   };
 
+  const schema = yup.object().shape({
+    email: yup.string().email("invalido").required("obrigatório"),
+    password: yup.string().required("obrigatória"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onFormSubmit = (data) => {
+    api
+      .post("/sessions", data)
+      .then((response) => {
+        const {
+          token,
+          user: { id },
+        } = response.data;
+        setIdUser(id);
+
+        localStorage.clear();
+        localStorage.setItem("@kenzieHub:token:", JSON.stringify(token));
+        setIsLogged(true);
+        history.push("/userPage");
+      })
+      .catch((_) => console.log("edeu erro"));
+  };
+
   return (
     <Container>
-      <NavBar isLogged={isLogged} />
+      <NavBar isLogged={isLogged} setIsLogged={setIsLogged} />
       <FormContainer>
         <div className="titleForm">
           <h1>Login</h1>
@@ -24,9 +58,25 @@ const Login = ({ isLogged }) => {
           </p>
         </div>
         <div className="containerForm">
-          <form className="inputForm">
-            <InputFild required id="email" type="email" name="Email" />
-            <InputFild required id="senha" type="password" name="Senha" />
+          <form className="inputForm" onSubmit={handleSubmit(onFormSubmit)}>
+            <InputFild
+              required
+              id="email"
+              type="text"
+              name="Email"
+              register={register}
+              error={!!errors.email}
+              messageerror={errors.email?.message}
+            />
+            <InputFild
+              required
+              id="password"
+              type="password"
+              name="Senha"
+              register={register}
+              error={!!errors.password}
+              messageerror={errors.password?.message}
+            />
             <div className="remember">
               <label htmlFor="cb">
                 <input id="cb" type="checkbox" />
@@ -36,9 +86,10 @@ const Login = ({ isLogged }) => {
             </div>
 
             <ButtonsDefult
-              borderRadius={"15px"}
-              hoverBColor={"#057d9f"}
-              hoverColor={"white"}
+              type={"submit"}
+              borderradius={"15px"}
+              hoverbcolor={"#057d9f"}
+              hovercolor={"white"}
               hoverborder={"1px solid #057d9f"}
             >
               Login

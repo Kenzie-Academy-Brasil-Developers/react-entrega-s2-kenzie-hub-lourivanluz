@@ -2,7 +2,7 @@ import { Container, NavBarStyled } from "./style";
 import { useHistory } from "react-router";
 import { ButtonMenuDrop, ButtonsDefult } from "./../Buttons";
 
-export const NavBar = ({ isLogged }) => {
+export const NavBar = ({ isLogged, setIsLogged }) => {
   const history = useHistory();
 
   const handleRoute = (path) => {
@@ -44,9 +44,7 @@ export const NavBar = ({ isLogged }) => {
             </li>
             {isLogged && (
               <li>
-                <ButtonMenuDrop onClick={() => handleRoute("/userPage")}>
-                  Minha pagina
-                </ButtonMenuDrop>
+                <ButtonMenuDrop setIsLogged={setIsLogged} />
               </li>
             )}
           </ul>
