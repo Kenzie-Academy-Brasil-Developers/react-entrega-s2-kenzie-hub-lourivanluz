@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const Login = ({ isAuthenticated, setIsAuthenticated, setIdUser }) => {
+const Login = ({ isAuthenticated, setIsAuthenticated }) => {
   const history = useHistory();
 
   const handleClick = (path) => {
@@ -36,10 +36,9 @@ const Login = ({ isAuthenticated, setIsAuthenticated, setIdUser }) => {
           token,
           user: { id },
         } = response.data;
-        setIdUser(id);
-
         localStorage.clear();
         localStorage.setItem("@kenzieHub:token:", JSON.stringify(token));
+        localStorage.setItem("@kenzieHub:idUser:", JSON.stringify(id));
         setIsAuthenticated(true);
         history.push("/userPage");
       })

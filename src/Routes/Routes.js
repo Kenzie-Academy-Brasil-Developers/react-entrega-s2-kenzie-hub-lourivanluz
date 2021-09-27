@@ -10,8 +10,6 @@ const Routes = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("@kenzieHub:token:") || ""
   );
-  const [idUser, setIdUser] = useState("");
-
   return (
     <MainStyled>
       <Switch>
@@ -25,21 +23,18 @@ const Routes = () => {
           <Login
             isAuthenticated={isAuthenticated}
             setIsAuthenticated={setIsAuthenticated}
-            setIdUser={setIdUser}
           />
         </Route>
         <Route path="/register">
           <Register
             isAuthenticated={isAuthenticated}
             setIsAuthenticated={setIsAuthenticated}
-            setIdUser={setIdUser}
           />
         </Route>
         <Route path="/userPage">
           <UserPage
             isAuthenticated={isAuthenticated}
             setIsAuthenticated={setIsAuthenticated}
-            idUser={idUser}
           />
         </Route>
       </Switch>

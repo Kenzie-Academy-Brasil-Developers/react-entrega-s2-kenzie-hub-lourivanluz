@@ -1,10 +1,9 @@
 import styled from "styled-components";
-export const InputStyled = styled.input`
-  width: ${({ width = "100%" }) => width};
-  height: ${({ height = "40px" }) => height};
+export const TextAreaSyled = styled.textarea`
+  width: 100%;
   margin-bottom: 20px;
   border-radius: 4px;
-  padding-left: 5px;
+  padding: 15px;
   background-color: ${({ backgroundColor = "white" }) => backgroundColor};
   border: 1px solid lightgray;
   color: ${({ color = "black" }) => color};

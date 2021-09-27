@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { schema } from "../../Schema/Schema";
 import api from "./../../Services/api";
 
-const Register = ({ isAuthenticated, setIsAuthenticated, setIdUser }) => {
+const Register = ({ isAuthenticated, setIsAuthenticated }) => {
   const history = useHistory();
 
   const handleClick = (path) => {
@@ -33,10 +33,9 @@ const Register = ({ isAuthenticated, setIsAuthenticated, setIdUser }) => {
           token,
           user: { id },
         } = response.data;
-
-        setIdUser(id);
         localStorage.clear();
         localStorage.setItem("@kenzieHub:token:", JSON.stringify(token));
+        localStorage.setItem("@kenzieHub:idUser:", JSON.stringify(id));
         setIsAuthenticated(true);
         history.push("/userPage");
       })

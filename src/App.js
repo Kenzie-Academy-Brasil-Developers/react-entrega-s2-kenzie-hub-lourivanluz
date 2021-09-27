@@ -28,6 +28,8 @@ testando
 modulo2
 
 
+weslley
+
 
 
 card component : recebe prop cor, imagem e nivel
